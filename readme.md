@@ -1,10 +1,19 @@
-Spring Boot DevTools DEVELOPER TOOLS
-Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
-Spring Web WEB
-Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container.
-Lombok DEVELOPER TOOLS
-Java annotation library which helps to reduce boilerplate code.
-Resilience4J SPRING CLOUD CIRCUIT BREAKER
-Spring Cloud Circuit breaker with Resilience4j as the underlying implementation.
-Spring cache abstraction I/O
-Provides cache-related operations, such as the ability to update the content of the cache, but does not provide the actual data store.
+"# Challenge for Evollum V2" 
+
+**Spring Project with:**
+- Language: Java
+- Project: Maven
+- Spring Boot Version: 2.2.7
+- Java Version: 14
+- Paking: jar
+- Spring Boot DevTools DEVELOPER TOOLS
+
+**with dependencys:**
+- Spring Boot DevTools
+- Lombok
+- Spring Web
+- Spring cache abstraction I/O
+- Resilience4J
+
+![enter image description here](https://i.ibb.co/897LLsf/spring-initializer.png)
+
