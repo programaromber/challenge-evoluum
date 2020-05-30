@@ -32,7 +32,7 @@ public class SwaggerConfig {
 						.globalResponseMessage(RequestMethod.GET, getCustomizedResponseMessages())
 						.securitySchemes(Arrays.asList(apiKey()))
 						.select()
-						.apis(RequestHandlerSelectors.basePackage("br.com.evoluum.api.controller"))
+						.apis(RequestHandlerSelectors.basePackage("br.com.evoluum.challenge.api.controller"))
 						.paths(PathSelectors.any())
 						.build();
 	}
@@ -42,7 +42,7 @@ public class SwaggerConfig {
 		
 		
 		return new ApiInfoBuilder().title("Project for Challenge Evoluum")
-				.description("API for querying states and municipalities of Brazil, as per the documentation described on this page. (IBGE source)")
+				.description("API for querying states and countys of Brazil, <a href='https://servicodados.ibge.gov.br/api/docs/localidades'>click here</a> to enter source page. ")
 				.termsOfServiceUrl("https://github.com/rafasall/challenge-evoluum")
 				.contact(new Contact("Rafael Salles", "https://github.com/rafasall", "rafaelsalles.sistemas@gmail.com.com.brm"))
 				.version("1.0").build();
