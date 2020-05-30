@@ -1,0 +1,33 @@
+package br.com.evoluum.challenge.infrastructure.adapter;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import br.com.evoluum.challenge.domain.dto.ResponseDTO;
+import br.com.evoluum.challenge.infrastructure.util.ChallengeUtil;
+import br.com.evoluum.challenge.infrastructure.util.DownloadAdapter;
+
+@Component
+public class CsvDownloadAdapter implements DownloadAdapter {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(CsvDownloadAdapter.class);
+
+	@Override
+	public void process(List<ResponseDTO> result, HttpServletResponse response, String fileName) throws IOException {
+		LOG.info(String.format("Generate file %s...", ChallengeUtil.CONTENT_TYPE_CSV));
+		byte[] data = ChallengeUtil.createCsv(result);
+		response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"",fileName));
+		response.setContentType(ChallengeUtil.CONTENT_TYPE_CSV);
+		response.setContentLength(data.length);
+		response.getOutputStream().write(data);
+		LOG.info(String.format("Finished generate file %s...", ChallengeUtil.CONTENT_TYPE_CSV));
+	}
+
+
+}

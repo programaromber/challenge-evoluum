@@ -32,7 +32,7 @@ public class SwaggerConfig {
 						.globalResponseMessage(RequestMethod.GET, getCustomizedResponseMessages())
 						.securitySchemes(Arrays.asList(apiKey()))
 						.select()
-						.apis(RequestHandlerSelectors.basePackage("br.com.evollum.challenge.api.controller"))
+						.apis(RequestHandlerSelectors.basePackage("br.com.evoluum.challenge.api.controller"))
 						.paths(PathSelectors.any())
 						.build();
 	}

@@ -31,9 +31,9 @@ public class SourceService implements ISource {
 	private RestTemplate restTemplate;
 
 	@Override
-	@HystrixCommand(fallbackMethod = "emptyState", commandProperties = {
+	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
-	@Cacheable(cacheNames = "State", key="#root.method.name")
+//	@Cacheable(cacheNames = "State", key="#root.method.name")
 	public Optional<List<State>> findAllStates() {
 		LOG.info("Loading all states of Brazil...");
 		List<State> response = Arrays
@@ -43,7 +43,7 @@ public class SourceService implements ISource {
 	}
 
 	@Override
-	@HystrixCommand(fallbackMethod = "emptyCounty", commandProperties = {
+	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
 	@Cacheable(cacheNames = "County", key="#root.method.name")
 	public Optional<List<County>> findAllCounty() {
@@ -55,9 +55,9 @@ public class SourceService implements ISource {
 	}
 
 	@Override
-	@HystrixCommand(fallbackMethod = "emptyCounty", commandProperties = {
+	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
-	@Cacheable(cacheNames = "County", key="#stateAbbreviation")
+//	@Cacheable(cacheNames = "County", key="#stateAbbreviation")
 	public Optional<List<County>> findCountysByState(String stateAbbreviation) {
 		LOG.info("Loading all countys by state of Brazil...");
 		List<County> response = Arrays
@@ -66,11 +66,4 @@ public class SourceService implements ISource {
 		return Optional.of(response);
 	}
 	
-    private Optional<List<State>> emptyState() {
-        return Optional.of(new ArrayList<State>());
-    }
-
-    private Optional<List<County>> emptyCounty(String nomeCidade) {
-        return Optional.of(new ArrayList<County>());
-    }
 }
