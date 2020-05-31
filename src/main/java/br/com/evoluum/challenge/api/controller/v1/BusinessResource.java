@@ -1,4 +1,4 @@
-package br.com.evoluum.challenge.api.controller;
+package br.com.evoluum.challenge.api.controller.v1;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.evoluum.challenge.domain.dto.ResponseDTO;
-import br.com.evoluum.challenge.domain.exception.BussinesException;
-import br.com.evoluum.challenge.domain.model.County;
-import br.com.evoluum.challenge.domain.model.State;
-import br.com.evoluum.challenge.domain.service.ChallengeService;
+import br.com.evoluum.challenge.domain.exception.BusinessException;
+import br.com.evoluum.challenge.domain.service.BusinessService;
 import br.com.evoluum.challenge.infrastructure.util.EnumResponseType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,14 +24,14 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(value = "api/v1")
 @Api(tags = { "ENDPOINTS FOR IBGE SOURCE" })
-public class ChallengeResource {
+public class BusinessResource {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(ChallengeResource.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BusinessResource.class);
 	
-	private ChallengeService service;
+	private BusinessService service;
 	
 	@Autowired
-	public ChallengeResource(ChallengeService service) {
+	public BusinessResource(BusinessService service) {
 		this.service = service;
 	}
 
@@ -58,7 +56,7 @@ public class ChallengeResource {
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/states/{responseType}")
 	@ApiOperation(value = "find all states retunring in file.")
-	public ResponseEntity findAllStatesforDownload(@PathVariable EnumResponseType responseType, HttpServletResponse httpResponse) throws BussinesException, IOException {
+	public ResponseEntity findAllStatesforDownload(@PathVariable EnumResponseType responseType, HttpServletResponse httpResponse) throws BusinessException, IOException {
 		LOG.info(String.format("Initializing the request for find all states to file type %s...", responseType.getValue()));
 		service.findAllStatesforDownload(responseType, httpResponse);
 		LOG.info(String.format("Finalizado processamento para para todos os dados, tipo: ", responseType.getValue()));
@@ -69,7 +67,7 @@ public class ChallengeResource {
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/states/{stateAbbreviation}/countys/{responseType}")
 	@ApiOperation(value = "find all countys to state in file.")
-	public ResponseEntity findAllCountysforDownload(@PathVariable String stateAbbreviation, @PathVariable EnumResponseType responseType,  HttpServletResponse httpResponse) throws BussinesException, IOException {
+	public ResponseEntity findCountysByStateforDownload(@PathVariable String stateAbbreviation, @PathVariable EnumResponseType responseType,  HttpServletResponse httpResponse) throws BusinessException, IOException {
 		LOG.info(String.format("Initializing the request for find countys of state of %s to file type %s...", stateAbbreviation, responseType.getValue()));
 		service.findCountysByStateforDownload(responseType, httpResponse, stateAbbreviation);
 		LOG.info(String.format("Request finished for find countys of state of %s to file type %s...", stateAbbreviation, responseType.getValue()));		

@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 
-import br.com.evoluum.challenge.domain.exception.BussinesException;
+import br.com.evoluum.challenge.domain.exception.BusinessException;
 import br.com.evoluum.challenge.infrastructure.service.SourceService;
 
 
@@ -177,8 +177,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	
-	@ExceptionHandler(BussinesException.class)
-	public ResponseEntity<?> handleNegocio(BussinesException ex, WebRequest request) {
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<?> handleNegocio(BusinessException ex, WebRequest request) {
 
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ProblemType problemType = ProblemType.BUSSINES_ERROR;

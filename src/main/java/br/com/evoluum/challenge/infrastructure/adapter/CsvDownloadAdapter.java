@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import br.com.evoluum.challenge.domain.dto.ResponseDTO;
-import br.com.evoluum.challenge.domain.exception.BussinesException;
+import br.com.evoluum.challenge.domain.exception.BusinessException;
 import br.com.evoluum.challenge.infrastructure.util.ChallengeUtil;
 import br.com.evoluum.challenge.infrastructure.util.DownloadAdapter;
 import br.com.evoluum.challenge.infrastructure.util.EnumResponseType;
@@ -21,7 +21,7 @@ public class CsvDownloadAdapter implements DownloadAdapter {
 	private static final Logger LOG = LoggerFactory.getLogger(CsvDownloadAdapter.class);
 
 	@Override
-	public void run(List<ResponseDTO> result, HttpServletResponse response, String stateAbbreviation) throws BussinesException {
+	public void run(List<ResponseDTO> result, HttpServletResponse response, String stateAbbreviation) throws BusinessException {
 		try {
 			LOG.info(String.format("Generate file %s...", ChallengeUtil.CONTENT_TYPE_CSV));
 			byte[] data = ChallengeUtil.createCsv(result, stateAbbreviation != null);
@@ -31,7 +31,7 @@ public class CsvDownloadAdapter implements DownloadAdapter {
 			response.getOutputStream().write(data);
 			LOG.info(String.format("Finished generate file %s...", ChallengeUtil.CONTENT_TYPE_CSV));
 		} catch (IOException e) {
-			throw new BussinesException(e.getLocalizedMessage(), e);
+			throw new BusinessException(e.getLocalizedMessage(), e);
 		}
 		
 	}

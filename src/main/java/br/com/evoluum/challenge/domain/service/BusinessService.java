@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.evoluum.challenge.domain.dto.ResponseDTO;
-import br.com.evoluum.challenge.domain.exception.BussinesException;
+import br.com.evoluum.challenge.domain.exception.BusinessException;
 import br.com.evoluum.challenge.domain.model.County;
 import br.com.evoluum.challenge.domain.model.State;
 import br.com.evoluum.challenge.infrastructure.service.SourceService;
@@ -19,12 +19,12 @@ import br.com.evoluum.challenge.infrastructure.util.ChallengeUtil;
 import br.com.evoluum.challenge.infrastructure.util.EnumResponseType;
 
 @Service
-public class ChallengeService {
+public class BusinessService {
 
 	private SourceService service;
 
 	@Autowired
-	public ChallengeService(SourceService service) {
+	public BusinessService(SourceService service) {
 		this.service = service;
 	}
 
@@ -61,25 +61,25 @@ public class ChallengeService {
 		return ResponseEntity.notFound().build();
 	}
 
-	public void findAllStatesforDownload(EnumResponseType responseType, HttpServletResponse response) throws BussinesException, IOException {
+	public void findAllStatesforDownload(EnumResponseType responseType, HttpServletResponse response) throws BusinessException, IOException {
 		
 		List<State> result = service.findAllStates();
 		
 		if (Optional.of(result).isPresent() && !result.isEmpty()) {
 			responseType.run(ChallengeUtil.statesToDTOs(result), response, null);
 		} else {
-			throw new BussinesException("Result not found.");
+			throw new BusinessException("Result not found.");
 		}
 	}
 	
-	public void findCountysByStateforDownload(EnumResponseType responseType, HttpServletResponse response, String stateAbbreviation) throws BussinesException, IOException {
+	public void findCountysByStateforDownload(EnumResponseType responseType, HttpServletResponse response, String stateAbbreviation) throws BusinessException, IOException {
 		
 		List<County> result = service.findCountysByState(stateAbbreviation);
 		
 		if (Optional.of(result).isPresent() && !result.isEmpty()) {
 			responseType.run(ChallengeUtil.countysToDTOs(result), response, stateAbbreviation);
 		} else {
-			throw new BussinesException("Result not found.");
+			throw new BusinessException("Result not found.");
 		}
 	}
 }

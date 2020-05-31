@@ -1,15 +1,15 @@
 package br.com.evoluum.challenge.domain.exception;
 
-public class BussinesException extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
 
 	private static final long serialVersionUID = 1126686696578227652L;
 
-	public BussinesException(String mensagem) {
+	public BusinessException(String mensagem) {
 		super(mensagem);
 	}
 	
-	public BussinesException(String mensagem, Throwable causa) {
+	public BusinessException(String mensagem, Throwable causa) {
 		super(mensagem, causa);
 	}
 	

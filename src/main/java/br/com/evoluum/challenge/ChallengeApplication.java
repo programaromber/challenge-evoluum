@@ -8,6 +8,7 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 @EnableCircuitBreaker
 @EnableCaching
 @SpringBootApplication
+
 public class ChallengeApplication {
 
 	public static void main(String[] args) {

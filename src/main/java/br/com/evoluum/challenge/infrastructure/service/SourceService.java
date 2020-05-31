@@ -1,5 +1,6 @@
 package br.com.evoluum.challenge.infrastructure.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class SourceService implements ISource {
 	private RestTemplate restTemplate;
 
 	@Override
-	@HystrixCommand(commandProperties = {
+	@HystrixCommand(fallbackMethod = "emptyStates", commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
 //	@Cacheable(cacheNames = "State", key="#root.method.name")
 	public List<State> findAllStates() {
@@ -42,7 +43,7 @@ public class SourceService implements ISource {
 	}
 
 	@Override
-	@HystrixCommand(commandProperties = {
+	@HystrixCommand(fallbackMethod = "emptyCountys", commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
 	@Cacheable(cacheNames = "County", key="#root.method.name", unless="#result.isEmpty()")
 	public List<County> findAllCounty() {
@@ -54,7 +55,7 @@ public class SourceService implements ISource {
 	}
 
 	@Override
-	@HystrixCommand(commandProperties = {
+	@HystrixCommand(fallbackMethod = "emptyCountysByState", commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
 //	@Cacheable(cacheNames = "County", key="#stateAbbreviation")
 	public List<County> findCountysByState(String stateAbbreviation) {
@@ -63,6 +64,18 @@ public class SourceService implements ISource {
 				.asList(restTemplate.getForEntity(String.format(properties.getSourceStateCounty(), stateAbbreviation), County[].class).getBody());
 		LOG.info("Finished loading all countys by state of Brazil...");
 		return response;
+	}
+	
+	public List<State> emptyStates() {
+		return new ArrayList<State>();
+	}
+	
+	public List<County> emptyCountys() {
+		return new ArrayList<County>();
+	}
+	
+	public List<County> emptyCountysByState(String stateAbbreviation) {
+		return new ArrayList<County>();
 	}
 	
 	

@@ -1,4 +1,4 @@
-package br.com.evollum.challenge;
+package br.com.evoluum.challenge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
