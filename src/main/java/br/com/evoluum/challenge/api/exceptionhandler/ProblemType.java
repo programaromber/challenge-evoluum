@@ -2,12 +2,12 @@ package br.com.evoluum.challenge.api.exceptionhandler;
 
 public enum ProblemType {
 
-	INVALID_DATA("/dados-invalidos", "Dados inválidos"), 
-	SYSTEM_ERROR("/erro-de-sistema", "Erro de sistema"),
-	INVALD_PARAMETER("/parametro-invalido", "Parâmetro inválido"),
-	GENERIC_ERROR("/mensagem-incompreensivel", "Mensagem incompreensível"),
-	RESOURCE_NOT_FOUND("/recurso-nao-encontrado", "Recurso não encontrado"),
-	BUSSINES_ERROR("/erro-negocio", "Violação de regra de negócio");
+	INVALID_DATA("/error", "INVALID DATA"), 
+	SYSTEM_ERROR("/error", "SYSTEM ERROR"),
+	INVALD_PARAMETER("/error", "INVALD PARAMETER"),
+	GENERIC_ERROR("/error", "GENERIC ERROR"),
+	RESOURCE_NOT_FOUND("/error", "RESOURCE NOT FOUND"),
+	BUSSINES_ERROR("/error", "BUSSINES ERROR");
 
 	private String title;
 	private String uri;

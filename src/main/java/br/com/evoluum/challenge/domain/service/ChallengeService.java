@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.evoluum.challenge.api.exceptionhandler.EntityNotFoundException;
+import br.com.evoluum.challenge.domain.dto.ResponseDTO;
 import br.com.evoluum.challenge.domain.exception.BussinesException;
 import br.com.evoluum.challenge.domain.model.County;
 import br.com.evoluum.challenge.domain.model.State;
@@ -28,55 +28,45 @@ public class ChallengeService {
 		this.service = service;
 	}
 
-	public ResponseEntity<List<State>> findAllStates() {
+	public ResponseEntity<List<ResponseDTO>> findAllStates() {
 
-		Optional<List<State>> result = service.findAllStates();
+		List<State> result = service.findAllStates();
 
-		if (result.isPresent()) {
-			return ResponseEntity.ok(result.get());
+		if (Optional.of(result).isPresent()) {
+			return ResponseEntity.ok(ChallengeUtil.statesToDTOs(result));
 		}
 
 		return ResponseEntity.notFound().build();
 	}
 
-	public ResponseEntity<List<County>> findAllCounty() {
 
-		Optional<List<County>> result = service.findAllCounty();
+	public ResponseEntity<List<ResponseDTO>> findCountysByState(String stateAbbreviation) {
 
-		if (result.isPresent()) {
-			return ResponseEntity.ok(result.get());
-		}
+		List<County> result = service.findCountysByState(stateAbbreviation);
 
-		return ResponseEntity.notFound().build();
-	}
-
-	public ResponseEntity<List<County>> findCountysByState(String stateAbbreviation) {
-
-		Optional<List<County>> result = service.findCountysByState(stateAbbreviation);
-
-		if (result.isPresent()) {
-			return ResponseEntity.ok(result.get());
+		if (Optional.of(result).isPresent()) {
+			return ResponseEntity.ok(ChallengeUtil.countysToDTOs(result));
 		}
 
 		return ResponseEntity.notFound().build();
 	}
 
 	public ResponseEntity<Integer> findCountyByName(String name) {
-		Optional<List<County>> result = service.findAllCounty();
+		List<County> result = service.findAllCounty();
 
-		if (result.isPresent()) {
+		if (Optional.of(result).isPresent()) {
 			return ResponseEntity.ok(
-					result.get().stream().filter(c -> c.getName().equalsIgnoreCase(name)).findFirst().get().getId());
+					result.stream().filter(c -> c.getName().equalsIgnoreCase(name)).findFirst().get().getId());
 		}
 		return ResponseEntity.notFound().build();
 	}
 
 	public void findAllStatesforDownload(EnumResponseType responseType, HttpServletResponse response) throws BussinesException, IOException {
 		
-		Optional<List<State>> result = service.findAllStates();
+		List<State> result = service.findAllStates();
 		
-		if (result.isPresent() && !result.get().isEmpty()) {
-			responseType.process(ChallengeUtil.statesToDTOs(result.get()), response, ChallengeUtil.getfileNameState(responseType));
+		if (Optional.of(result).isPresent() && !result.isEmpty()) {
+			responseType.run(ChallengeUtil.statesToDTOs(result), response, null);
 		} else {
 			throw new BussinesException("Result not found.");
 		}
@@ -84,10 +74,10 @@ public class ChallengeService {
 	
 	public void findCountysByStateforDownload(EnumResponseType responseType, HttpServletResponse response, String stateAbbreviation) throws BussinesException, IOException {
 		
-		Optional<List<County>> result = service.findCountysByState(stateAbbreviation);
+		List<County> result = service.findCountysByState(stateAbbreviation);
 		
-		if (result.isPresent() && !result.get().isEmpty()) {
-			responseType.process(ChallengeUtil.countysToDTOs(result.get()), response, ChallengeUtil.getfileNameCounty(stateAbbreviation, responseType));
+		if (Optional.of(result).isPresent() && !result.isEmpty()) {
+			responseType.run(ChallengeUtil.countysToDTOs(result), response, stateAbbreviation);
 		} else {
 			throw new BussinesException("Result not found.");
 		}

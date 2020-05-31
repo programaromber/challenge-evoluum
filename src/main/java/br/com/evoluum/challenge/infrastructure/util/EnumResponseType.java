@@ -13,14 +13,14 @@ public enum EnumResponseType {
 
 	CSV("CSV") {
 		@Override
-		public void process(List<ResponseDTO> result, HttpServletResponse response, String fileName) throws IOException{
-			new CsvDownloadAdapter().process(result, response, fileName);
+		public void run(List<ResponseDTO> result, HttpServletResponse response, String stateAbbreviation) throws IOException{
+			new CsvDownloadAdapter().run(result, response, stateAbbreviation);
 		}
 	}, 
 	JSON("JSON") {
 		@Override
-		public void process(List<ResponseDTO> result, HttpServletResponse response, String fileName) throws IOException{
-			new JsonDownloadAdapter().process(result, response, fileName);
+		public void run(List<ResponseDTO> result, HttpServletResponse response, String stateAbbreviation) throws IOException{
+			new JsonDownloadAdapter().run(result, response, stateAbbreviation);
 		}
 	};
 
@@ -34,5 +34,5 @@ public enum EnumResponseType {
 		return value;
 	}
 	
-	public abstract void process(List<ResponseDTO> result, HttpServletResponse response, String fileName) throws IOException;
+	public abstract void run(List<ResponseDTO> result, HttpServletResponse response, String stateAbbreviation) throws IOException;
 }

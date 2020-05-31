@@ -1,6 +1,5 @@
 package br.com.evoluum.challenge.infrastructure.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -34,36 +33,37 @@ public class SourceService implements ISource {
 	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
 //	@Cacheable(cacheNames = "State", key="#root.method.name")
-	public Optional<List<State>> findAllStates() {
+	public List<State> findAllStates() {
 		LOG.info("Loading all states of Brazil...");
 		List<State> response = Arrays
 				.asList(restTemplate.getForEntity(properties.getSourceState(), State[].class).getBody());
 		LOG.info("Finished loading all states of Brazil...");
-		return Optional.of(response);
+		return response;
 	}
 
 	@Override
 	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
-	@Cacheable(cacheNames = "County", key="#root.method.name")
-	public Optional<List<County>> findAllCounty() {
+	@Cacheable(cacheNames = "County", key="#root.method.name", unless="#result.isEmpty()")
+	public List<County> findAllCounty() {
 		LOG.info("Loading all countys of Brazil...");
 		List<County> response = Arrays
 				.asList(restTemplate.getForEntity(properties.getSourceCounty(), County[].class).getBody());
 		LOG.info("Finished loading all countys of Brazil...");
-		return Optional.of(response);
+		return response;
 	}
 
 	@Override
 	@HystrixCommand(commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000") })
 //	@Cacheable(cacheNames = "County", key="#stateAbbreviation")
-	public Optional<List<County>> findCountysByState(String stateAbbreviation) {
+	public List<County> findCountysByState(String stateAbbreviation) {
 		LOG.info("Loading all countys by state of Brazil...");
 		List<County> response = Arrays
 				.asList(restTemplate.getForEntity(String.format(properties.getSourceStateCounty(), stateAbbreviation), County[].class).getBody());
 		LOG.info("Finished loading all countys by state of Brazil...");
-		return Optional.of(response);
+		return response;
 	}
+	
 	
 }
