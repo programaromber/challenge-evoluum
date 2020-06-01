@@ -9,13 +9,24 @@
 ![click here](https://i.ibb.co/BrPbRXn/mvc-classes.jpg)
 
 
+## Patterns
+
+1. MVC.
+2. Strategy with EnumRespondeType.
+3. Adapter with IDownload for CsvDownloadAdapter and JsonDownloadAdapter.
+
+## Concetps
+1. Clean code.
+4. Solid.
+3. TDD.
+
 ## Start from spring
 
 Command:
 ```
 mvn spring-boot:run
 ```
-
+#
 ## Start from docker
 
 Command:
