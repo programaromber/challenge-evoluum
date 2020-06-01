@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "b9aac9ce-0d48-4480-a8b1-95c6e266568e",
+		"name": "challenge-evoluum",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ESTADOS DEFAULT",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "evoluum",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "f57662b40d361e3882e9f4c5920b2eaa98294db2a34720e3b8fa0d4895964d83",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CIDADES POR ESTADO DEFAULT",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "evoluum",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "f57662b40d361e3882e9f4c5920b2eaa98294db2a34720e3b8fa0d4895964d83",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/states/PA/countys",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"states",
+						"PA",
+						"countys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ID CIDADE POR NOME",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "evoluum",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "f57662b40d361e3882e9f4c5920b2eaa98294db2a34720e3b8fa0d4895964d83",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/countys/abaetetuba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"countys",
+						"abaetetuba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ESTADOS CSV DOWNLOAD",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "evoluum",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "f57662b40d361e3882e9f4c5920b2eaa98294db2a34720e3b8fa0d4895964d83",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/states/CSV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"states",
+						"CSV"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ESTADOS JSON DOWNLOAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/states/JSON",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"states",
+						"JSON"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CIDADE POR ESTADO CSV DOWNLOAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/states/PA/countys/CSV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"states",
+						"PA",
+						"countys",
+						"CSV"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CIDADE POR ESTADO JSON DOWNLOAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/states/PA/countys/JSON",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"states",
+						"PA",
+						"countys",
+						"JSON"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
